@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { fetchData } from './helpers';
+import Box from '@material-ui/core/Box';
+import Post from './components/Post';
 
 function App() {
   const [feeds, setFeeds] = useState([]);
 
-  const getFeeds = () => {
-    const { REACT_APP_API, REACT_APP_KEY } = process.env;
-
-    fetch(`${REACT_APP_API}/?client_id=${REACT_APP_KEY}`)
-      .then((res) => res.json())
-      .then((data) => setFeeds(data))
-      .catch((error) => new Error(error));
-  };
-
   useEffect(() => {
-    getFeeds();
+    fetchData(setFeeds);
   }, []);
 
-  return <div></div>;
+  return (
+    <div>
+      <Box>
+        {feeds.map((data) => (
+          <Post key={data.id} data={data} />
+        ))}
+      </Box>
+    </div>
+  );
 }
 
 export default App;
