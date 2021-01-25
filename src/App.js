@@ -1,36 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { fetchData } from './helpers';
 import Box from '@material-ui/core/Box';
+import Topbar from './components/Topbar';
 import Post from './components/Post';
+import useStyles from './styles/styles';
 
 function App() {
+  const maxFeeds = 30;
   const [feeds, setFeeds] = useState([]);
   const [page, setPage] = useState(1);
-  const [isTimeout, setIsTimeout] = useState(false);
+  const styles = useStyles();
 
-  const updateFeeds = (newFeeds) => {
-    setFeeds([...feeds, ...newFeeds]);
-  };
+  const updateFeeds = useCallback(
+    (newFeeds) => {
+      setFeeds((curFeeds) => [...curFeeds, ...newFeeds]);
+    },
+    [setFeeds]
+  );
 
   const handleScroll = (e) => {
     if (
       window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight &&
-      !isTimeout
+      feeds.length < maxFeeds
     ) {
       let nextPage = page + 1;
-      setIsTimeout(true);
       setPage(nextPage);
       fetchData(nextPage, updateFeeds);
-
-      // Set limits to how often fetchData is called
-      setTimeout(() => {
-        setIsTimeout(false);
-      }, 1500);
     }
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, true);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -42,7 +42,8 @@ function App() {
 
   return (
     <div>
-      <Box onScroll={handleScroll}>
+      <Topbar />
+      <Box className={styles.content}>
         {feeds.map((feed) => (
           <Post key={feed.id} data={feed} />
         ))}

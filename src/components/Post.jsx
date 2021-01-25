@@ -1,21 +1,15 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 800,
-  },
-});
+import useStyles from '../styles/styles';
 
 function Post({ data }) {
-  const classes = useStyles();
+  const styles = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card className={styles.card}>
       <CardMedia
         component="img"
         alt={data.alt_description}
@@ -25,7 +19,7 @@ function Post({ data }) {
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          {data.description}
+          {data.description ? data.description : 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.'}
         </Typography>
       </CardContent>
     </Card>
