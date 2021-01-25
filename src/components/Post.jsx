@@ -13,7 +13,6 @@ const useStyles = makeStyles({
 
 function Post({ data }) {
   const classes = useStyles();
-  console.log(data);
 
   return (
     <Card className={classes.root}>
