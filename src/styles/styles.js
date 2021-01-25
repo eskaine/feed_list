@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#00B7C3',
   },
   toolbar: {
     justifyContent: 'center',

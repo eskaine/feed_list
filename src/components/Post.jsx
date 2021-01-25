@@ -18,7 +18,7 @@ function Post({ data }) {
         title={data.description}
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant="subtitle2" color="textSecondary" align="center">
           {data.description ? data.description : 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.'}
         </Typography>
       </CardContent>

@@ -12,7 +12,7 @@ function Topbar() {
     <AppBar className={styles.appbar}>
       <Container>
         <Toolbar className={styles.toolbar} disableGutters={true}>
-          <Typography variant="h6">Post List</Typography>
+          <Typography variant="h6">Infinite Posts</Typography>
         </Toolbar>
       </Container>
     </AppBar>

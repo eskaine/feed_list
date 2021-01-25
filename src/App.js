@@ -6,9 +6,9 @@ import Post from './components/Post';
 import useStyles from './styles/styles';
 
 function App() {
-  const maxFeeds = 30;
   const [feeds, setFeeds] = useState([]);
   const [page, setPage] = useState(1);
+  const [isTimeout, setIsTimeout] = useState(false);
   const styles = useStyles();
 
   const updateFeeds = useCallback(
@@ -21,11 +21,15 @@ function App() {
   const handleScroll = (e) => {
     if (
       window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight &&
-      feeds.length < maxFeeds
+      !isTimeout
     ) {
       let nextPage = page + 1;
+      setIsTimeout(true);
       setPage(nextPage);
       fetchData(nextPage, updateFeeds);
+      setTimeout(() => {
+        setIsTimeout(false);
+      }, 1000);
     }
   };
 
